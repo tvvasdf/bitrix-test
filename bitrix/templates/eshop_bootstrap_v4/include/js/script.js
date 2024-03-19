@@ -38,7 +38,13 @@ function keyboardInput() {
 }
 
 function addProduct() {
-    document.querySelector('[data-product-add]').addEventListener('click', e => {
+    const button = document.querySelector('[data-product-add]');
+
+    if (!button) {
+        return;
+    }
+
+    button.addEventListener('click', e => {
         e.preventDefault();
 
         const id = document.querySelector('[data-product-add]').getAttribute('data-product-add');
