@@ -24,7 +24,7 @@ function keyboardInput() {
             }
 
             BX.ajax.post(
-                '/local/php_interface/ajax/errorReport.php',
+                '/bitrix/ajax/errorReport.php',
                 {
                     url: window.location.pathname,
                     text: text,
