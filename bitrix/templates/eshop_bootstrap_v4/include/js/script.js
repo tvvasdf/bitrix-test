@@ -1,5 +1,6 @@
 BX.ready(function () {
     keyboardInput();
+    addProduct();
 });
 
 function keyboardInput() {
@@ -34,4 +35,25 @@ function keyboardInput() {
             );
         }
     );
+}
+
+function addProduct() {
+    document.querySelector('[data-product-add]').addEventListener('click', e => {
+        e.preventDefault();
+
+        const id = document.querySelector('[data-product-add]').getAttribute('data-product-add');
+        const quantity = document.querySelector('[data-product-quantity]').value;
+
+
+        let data = {
+            id: id,
+            quantity: quantity
+        };
+
+        BX.ajax.post(
+            '/bitrix/ajax/addProduct.php',
+            data,
+            r => alert(r)
+        );
+    });
 }
