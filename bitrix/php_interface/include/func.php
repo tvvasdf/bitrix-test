@@ -12,6 +12,3 @@ function getHlId($table): int|false {
 
     return $rs['ID'] ?? false;
 }
-
-
-
