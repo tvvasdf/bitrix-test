@@ -25,102 +25,13 @@ $templateData = array(
 	'TEMPLATE_CLASS' => $arParams['TEMPLATE_THEME']
 );
 
+//одинаковые характеристики товаров не должны отображаться при сравнении, ставим true
+$arResult['DIFFERENT'] = true;
 ?>
 <div class="catalog-compare mb-4 bx-<? echo $templateData['TEMPLATE_CLASS']; ?>" id="bx_catalog_compare_block"><?
 	if ($isAjax)
 	{
 		$APPLICATION->RestartBuffer();
-	}
-	?>
-	<div class="mb-3 d-flex align-items-center">
-		<div class="pr-2">
-			<small class="text-muted"><?= GetMessage("CATALOG_SHOWN_CHARACTERISTICS") ?>:</small>
-		</div>
-		<div class="pr-2">
-			<a
-				class="btn btn-sm <? echo (!$arResult["DIFFERENT"] ? 'btn-secondary' : 'btn-primary'); ?>"
-				href="<? echo $arResult['COMPARE_URL_TEMPLATE'].'DIFFERENT=N'; ?>"
-				rel="nofollow"><?=GetMessage("CATALOG_ALL_CHARACTERISTICS")?></a>
-		</div>
-		<div class="pr-2">
-			<a
-				class="btn btn-sm <? echo ($arResult["DIFFERENT"] ? 'btn-secondary' : 'btn-primary'); ?>"
-				href="<? echo $arResult['COMPARE_URL_TEMPLATE'].'DIFFERENT=Y'; ?>"
-				rel="nofollow"><?=GetMessage("CATALOG_ONLY_DIFFERENT")?></a>
-		</div>
-	</div>
-	<? if (!empty($arResult["ALL_FIELDS"]) || !empty($arResult["ALL_PROPERTIES"]) || !empty($arResult["ALL_OFFER_FIELDS"]) || !empty($arResult["ALL_OFFER_PROPERTIES"]))
-	{
-		?>
-		<div class="catalog-compare-filter p-3 mb-3">
-			<div class="catalog-compare-filter-title"><?=GetMessage("CATALOG_COMPARE_PARAMS")?></div>
-			<div class="row">
-				<? if (!empty($arResult["ALL_FIELDS"]))
-				{
-					foreach ($arResult["ALL_FIELDS"] as $propCode => $arProp)
-					{
-						if (!isset($arResult['FIELDS_REQUIRED'][$propCode]))
-						{
-							?>
-							<div class="col-12 col-lg-3 col-md-4">
-								<span class="form-check" onclick="CatalogCompareObj.MakeAjaxAction('<?=CUtil::JSEscape($arProp["ACTION_LINK"])?>')">
-									<input type="checkbox" class="form-check-input" id="PF_<?=$propCode?>"<? echo ($arProp["IS_DELETED"] == "N" ? ' checked="checked"' : ''); ?>>
-									<label class="form-check-label" for="PF_<?=$propCode?>"><?=GetMessage("IBLOCK_FIELD_".$propCode)?></label>
-								</span>
-							</div>
-							<?
-						}
-					}
-				}
-
-				if (!empty($arResult["ALL_OFFER_FIELDS"]))
-				{
-					foreach($arResult["ALL_OFFER_FIELDS"] as $propCode => $arProp)
-					{
-						?>
-						<div class="col-12 col-lg-3 col-md-4">
-							<span class="form-check" onclick="CatalogCompareObj.MakeAjaxAction('<?=CUtil::JSEscape($arProp["ACTION_LINK"])?>')">
-								<input type="checkbox" class="form-check-input" id="OF_<?=$propCode?>"<? echo ($arProp["IS_DELETED"] == "N" ? ' checked="checked"' : ''); ?>>
-								<label class="form-check-label" for="OF_<?=$propCode?>"><?=GetMessage("IBLOCK_OFFER_FIELD_".$propCode)?></label>
-							</span>
-						</div>
-						<?
-					}
-				}
-
-				if (!empty($arResult["ALL_PROPERTIES"]))
-				{
-					foreach($arResult["ALL_PROPERTIES"] as $propCode => $arProp)
-					{
-						?>
-						<div class="col-12 col-lg-3 col-md-4">
-							<span class="form-check" onclick="CatalogCompareObj.MakeAjaxAction('<?=CUtil::JSEscape($arProp["ACTION_LINK"])?>')">
-								<input type="checkbox" class="form-check-input" id="PP_<?=$propCode?>"<?echo ($arProp["IS_DELETED"] == "N" ? ' checked="checked"' : '');?>>
-								<label class="form-check-label" for="PP_<?=$propCode?>"><?=$arProp["NAME"]?></label>
-							</span>
-						</div>
-						<?
-					}
-				}
-
-				if (!empty($arResult["ALL_OFFER_PROPERTIES"]))
-				{
-					foreach($arResult["ALL_OFFER_PROPERTIES"] as $propCode => $arProp)
-					{
-						?>
-						<div class="col-12 col-lg-3 col-md-4">
-							<span class="form-check" onclick="CatalogCompareObj.MakeAjaxAction('<?=CUtil::JSEscape($arProp["ACTION_LINK"])?>')">
-								<input type="checkbox" class="form-check-input" id="OP_<?=$propCode?>"<? echo ($arProp["IS_DELETED"] == "N" ? ' checked="checked"' : ''); ?>>
-								<label class="form-check-label" for="OP_<?=$propCode?>"><?=$arProp["NAME"]?></label>
-							</span>
-						</div>
-						<?
-					}
-				}
-				?>
-			</div>
-		</div>
-		<?
 	}
 	?>
 	<div class="catalog-compare-table table-responsive">
