@@ -46,9 +46,9 @@ if ($query) {
 
 <hr>
 
-<?php if (!$result): ?>
+<?php if (!$result && $query): ?>
     <p>Товаров с кодом <b><?= $query ?></b> не найдено</p>
-<?php else: ?>
+<?php elseif ($result): ?>
     <div class="container">
         <p>Название: <?= $result['NAME'] ?></p>
         <p>Цена: <?= $result['PRICE_' . BASE_PRICE_ID] ?></p>
